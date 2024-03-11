@@ -1,0 +1,420 @@
+From a0f3b19f1e9cf4a26f8145b58939fc6af2794631 Mon Sep 17 00:00:00 2001
+From: Mukulshitole <102034299+Mukulshitole@users.noreply.github.com>
+Date: Wed, 9 Aug 2023 07:40:34 +0530
+Subject: [PATCH 1/2] server started
+
+---
+ .idea/forage-jpmc-swe-task-2.iml              |  8 ++
+ .../inspectionProfiles/profiles_settings.xml  |  6 ++
+ .idea/modules.xml                             |  8 ++
+ .idea/runConfigurations/server3.xml           | 21 +++++
+ .idea/vcs.xml                                 |  6 ++
+ .idea/workspace.xml                           | 81 +++++++++++++++++++
+ datafeed/server3.py                           |  3 +-
+ package-lock.json                             |  2 +-
+ package.json                                  |  2 +-
+ python                                        |  0
+ src/DataStreamer.ts                           | 26 +++---
+ 11 files changed, 145 insertions(+), 18 deletions(-)
+ create mode 100644 .idea/forage-jpmc-swe-task-2.iml
+ create mode 100644 .idea/inspectionProfiles/profiles_settings.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/runConfigurations/server3.xml
+ create mode 100644 .idea/vcs.xml
+ create mode 100644 .idea/workspace.xml
+ create mode 100644 python
+
+diff --git a/.idea/forage-jpmc-swe-task-2.iml b/.idea/forage-jpmc-swe-task-2.iml
+new file mode 100644
+index 0000000..d9e6024
+--- /dev/null
++++ b/.idea/forage-jpmc-swe-task-2.iml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+index 0000000..105ce2d
+--- /dev/null
++++ b/.idea/inspectionProfiles/profiles_settings.xml
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000..e188fbe
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/forage-jpmc-swe-task-2.iml" filepath="$PROJECT_DIR$/.idea/forage-jpmc-swe-task-2.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/runConfigurations/server3.xml b/.idea/runConfigurations/server3.xml
+new file mode 100644
+index 0000000..f33223f
+--- /dev/null
++++ b/.idea/runConfigurations/server3.xml
+@@ -0,0 +1,21 @@
++<component name="ProjectRunConfigurationManager">
++  <configuration default="false" name="server3" type="PythonConfigurationType" factoryName="Python" singleton="false" nameIsGenerated="true">
++    <module name="forage-jpmc-swe-task-2" />
++    <option name="INTERPRETER_OPTIONS" value="" />
++    <option name="PARENT_ENVS" value="true" />
++    <option name="SDK_HOME" value="C:\Users\Mukul\Documents\GitHub\CredenceLearn\forage-jpmc-swe-task-1\venv\Scripts\python.exe" />
++    <option name="SDK_NAME" value="Python 3.11 (forage-jpmc-swe-task-1)" />
++    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/datafeed" />
++    <option name="IS_MODULE_SDK" value="false" />
++    <option name="ADD_CONTENT_ROOTS" value="true" />
++    <option name="ADD_SOURCE_ROOTS" value="true" />
++    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/datafeed/server3.py" />
++    <option name="PARAMETERS" value="" />
++    <option name="SHOW_COMMAND_LINE" value="true" />
++    <option name="EMULATE_TERMINAL" value="false" />
++    <option name="MODULE_MODE" value="false" />
++    <option name="REDIRECT_INPUT" value="false" />
++    <option name="INPUT_FILE" value="" />
++    <method v="2" />
++  </configuration>
++</component>
+\ No newline at end of file
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+index 0000000..c8397c9
+--- /dev/null
++++ b/.idea/vcs.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+index 0000000..632a6ab
+--- /dev/null
++++ b/.idea/workspace.xml
+@@ -0,0 +1,81 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
++  <component name="ChangeListManager">
++    <list default="true" id="c80ca849-2be3-4cc2-8863-fa92d56c98e7" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/forage-jpmc-swe-task-2.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/datafeed/server3.py" beforeDir="false" afterPath="$PROJECT_DIR$/datafeed/server3.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/DataStreamer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataStreamer.ts" afterDir="false" />
++    </list>
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProjectId" id="2TiAB9wtoXv46sDJVGge8wO6j92" />
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mukul/Documents/GitHub/CredenceLearn/forage-jpmc-swe-task-2/datafeed/server3.py&quot;
++  }
++}</component>
++  <component name="RunManager">
++    <configuration name="server3" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
++      <module name="forage-jpmc-swe-task-2" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
++      <option name="SDK_HOME" value="C:\Users\Mukul\Documents\GitHub\CredenceLearn\forage-jpmc-swe-task-1\venv\Scripts\python.exe" />
++      <option name="SDK_NAME" value="Python 3.11 (forage-jpmc-swe-task-1)" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/datafeed" />
++      <option name="IS_MODULE_SDK" value="false" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/datafeed/server3.py" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="true" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
++      <method v="2" />
++    </configuration>
++  </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="c80ca849-2be3-4cc2-8863-fa92d56c98e7" name="Changes" comment="" />
++      <created>1691515390115</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1691515390115</updated>
++    </task>
++    <servers />
++  </component>
++  <component name="XDebuggerManager">
++    <watches-manager>
++      <configuration name="PythonConfigurationType">
++        <watch expression="self" />
++      </configuration>
++    </watches-manager>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/datafeed/server3.py b/datafeed/server3.py
+index 68f4659..3955be0 100644
+--- a/datafeed/server3.py
++++ b/datafeed/server3.py
+@@ -263,6 +263,7 @@ class App(object):
+         self._data_2 = order_book(read_csv(), self._book_2, 'DEF')
+         self._rt_start = datetime.now()
+         self._sim_start, _, _ = next(self._data_1)
++
+         self.read_10_first_lines()
+ 
+     @property
+@@ -339,4 +340,4 @@ if __name__ == '__main__':
+     if not os.path.isfile('test.csv'):
+         print("No data found, generating...")
+         generate_csv()
+-    run(App())
++    run(App())
+\ No newline at end of file
+diff --git a/package-lock.json b/package-lock.json
+index 21b4315..f5728d2 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -20,7 +20,7 @@
+         "puppeteer": "^1.19.0",
+         "react": "^16.9.0",
+         "react-dom": "^16.9.0",
+-        "react-scripts": "2.1.3"
++        "react-scripts": "^2.1.3"
+       },
+       "devDependencies": {
+         "awesome-typescript-loader": "^5.2.1",
+diff --git a/package.json b/package.json
+index ca234e9..5cf500d 100644
+--- a/package.json
++++ b/package.json
+@@ -15,7 +15,7 @@
+     "puppeteer": "^1.19.0",
+     "react": "^16.9.0",
+     "react-dom": "^16.9.0",
+-    "react-scripts": "2.1.3"
++    "react-scripts": "^2.1.3"
+   },
+   "scripts": {
+     "start": "react-scripts --openssl-legacy-provider start",
+diff --git a/python b/python
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/DataStreamer.ts b/src/DataStreamer.ts
+index 78583cb..f183fa5 100644
+--- a/src/DataStreamer.ts
++++ b/src/DataStreamer.ts
+@@ -1,11 +1,8 @@
+ export interface Order {
+-  price: Number,
+-  size: Number,
++  price: number,
++  size: number,
+ }
+-/**
+- * The datafeed server returns an array of ServerRespond with 2 stocks.
+- * We do not have to manipulate the ServerRespond for the purpose of this task.
+- */
++
+ export interface ServerRespond {
+   stock: string,
+   top_bid: Order,
+@@ -14,27 +11,26 @@ export interface ServerRespond {
+ }
+ 
+ class DataStreamer {
+-  // The url where datafeed server is listening
+   static API_URL: string = 'http://localhost:8080/query?id=1';
+ 
+-  /**
+-   * Send request to the datafeed server and executes callback function on success
+-   * @param callback callback function that takes JSON object as its argument
+-   */
+   static getData(callback: (data: ServerRespond[]) => void): void {
+     const request = new XMLHttpRequest();
+-    request.open('GET', DataStreamer.API_URL, false);
++    request.open('GET', DataStreamer.API_URL, true); // Use true for asynchronous
+ 
+     request.onload = () => {
+       if (request.status === 200) {
+         callback(JSON.parse(request.responseText));
+       } else {
+-        alert ('Request failed');
++        console.error('Request failed');
+       }
+-    }
++    };
++
++    request.onerror = () => {
++      console.error('Request error');
++    };
+ 
+     request.send();
+   }
+ }
+ 
+-export default DataStreamer;
+\ No newline at end of file
++export default DataStreamer;
+-- 
+2.41.0.windows.3
+
+
+From 17e21c9c9a4026834118fb3c597a139e72ef6b71 Mon Sep 17 00:00:00 2001
+From: Mukulshitole <102034299+Mukulshitole@users.noreply.github.com>
+Date: Wed, 9 Aug 2023 08:00:18 +0530
+Subject: [PATCH 2/2] changes made
+
+---
+ src/App.tsx   | 21 ++++++++++++++++-----
+ src/Graph.tsx | 16 ++++++++++++----
+ 2 files changed, 28 insertions(+), 9 deletions(-)
+
+diff --git a/src/App.tsx b/src/App.tsx
+index 0728518..3b2e505 100755
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -8,6 +8,7 @@ import './App.css';
+  */
+ interface IState {
+   data: ServerRespond[],
++  showGraph : boolean
+ }
+ 
+ /**
+@@ -22,6 +23,7 @@ class App extends Component<{}, IState> {
+       // data saves the server responds.
+       // We use this state to parse data down to the child element (Graph) as element property
+       data: [],
++      showGraph:false,
+     };
+   }
+ 
+@@ -29,6 +31,7 @@ class App extends Component<{}, IState> {
+    * Render Graph react component with state.data parse as property data
+    */
+   renderGraph() {
++    if (this.state.showGraph)
+     return (<Graph data={this.state.data}/>)
+   }
+ 
+@@ -36,11 +39,19 @@ class App extends Component<{}, IState> {
+    * Get new data from server and update the state with the new data
+    */
+   getDataFromServer() {
+-    DataStreamer.getData((serverResponds: ServerRespond[]) => {
+-      // Update the state by creating a new array of data that consists of
+-      // Previous data in the state and the new data from server
+-      this.setState({ data: [...this.state.data, ...serverResponds] });
+-    });
++    let x = 0;
++        const interval = setInterval(() => {
++          DataStreamer.getData((serverResponds: ServerRespond[]) => {
++            this.setState({
++              data: serverResponds,
++              showGraph: true,
++            });
++          });
++          x++;
++          if (x > 1000) {
++           clearInterval(interval);
++          }
++        }, 100);
+   }
+ 
+   /**
+diff --git a/src/Graph.tsx b/src/Graph.tsx
+index 3b2a7da..1aa0642 100644
+--- a/src/Graph.tsx
++++ b/src/Graph.tsx
+@@ -14,7 +14,7 @@ interface IProps {
+  * Perspective library adds load to HTMLElement prototype.
+  * This interface acts as a wrapper for Typescript compiler.
+  */
+-interface PerspectiveViewerElement {
++interface PerspectiveViewerElement extends HTMLElement {
+   load: (table: Table) => void,
+ }
+ 
+@@ -32,7 +32,7 @@ class Graph extends Component<IProps, {}> {
+ 
+   componentDidMount() {
+     // Get element to attach the table from the DOM.
+-    const elem: PerspectiveViewerElement = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
++    const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+ 
+     const schema = {
+       stock: 'string',
+@@ -41,15 +41,23 @@ class Graph extends Component<IProps, {}> {
+       timestamp: 'date',
+     };
+ 
+-    if (window.perspective && window.perspective.worker()) {
++    if (window.perspective ) {
+       this.table = window.perspective.worker().table(schema);
+     }
+     if (this.table) {
+       // Load the `table` in the `<perspective-viewer>` DOM reference.
+-
++      
+       // Add more Perspective configurations here.
+       elem.load(this.table);
++    
++      elem.setAttribute('view', 'y_line');
++      elem.setAttribute('column-pivots', '["stock"]');
++      elem.setAttribute('row-pivots', '["timestamp"]');
++      elem.setAttribute('columns', '["top_ask_price"]');
++      elem.setAttribute('aggregates', '{"stock":"distinct count","top_ask_price":"avg","top_bid_price":"avg","timestamp":"distinct count"}');
+     }
++   
++    
+   }
+ 
+   componentDidUpdate() {
+-- 
+2.41.0.windows.3
+
